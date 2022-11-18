@@ -1,47 +1,14 @@
 "use strict";
 
-class Zombie {
+class Zombie extends Parent{
     constructor(x, y, id, matrix, objectsMatrix) {
-        this.x = x;
-        this.y = y;
-        this.matrix = matrix;
-        this.objectsMatrix = objectsMatrix;
-        this.id = id;
+        super(x, y, id, matrix, objectsMatrix);
         this.infestPower = 5;
         /// այս փոփոխականը ես ավելացրել եմ որովհետև Զոմբիների lastStand(); ֆունքցիան չափից շատ կանչելու պատճառով այս Error ն էր բերում Uncaught RangeError: Maximum call stack size exceeded;
         this.zombieStandingPower = 10;
         ////////////////////////////////////////////////////
         this.energy = 100;
         this.updateCoordinates();
-    }
-
-    chooseCell(characterId) {
-        this.updateCoordinates();
-        let found = [];
-        for (let i = 0; i < this.directions.length; i++) {
-            let x = this.directions[i][0];
-            let y = this.directions[i][1];
-            if (x >= 0 && x < this.matrix[0].length && y >= 0 && y < this.matrix.length) {
-                if (this.matrix[y][x] == characterId) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-
-        return found;
-    }
-
-    updateCoordinates() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
     }
 
     move() {

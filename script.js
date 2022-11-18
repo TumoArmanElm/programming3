@@ -1,7 +1,7 @@
 "use strict";
 
-const n = 55;
-const m = 55;
+const n = 70;
+const m = 70;
 
 const side = 10;
 
