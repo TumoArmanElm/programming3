@@ -1,20 +1,25 @@
 "use strict";
 
-const n = 70;
-const m = 70;
+const horizontallength = 70;
+const verticallength = 70;
 
 const side = 10;
 
-const matrix = createMatrix(n,m);
-const objectsMatrix =  createObjectsMatrix(matrix);
+const matrix = createMatrix(horizontallength, verticallength);
+const objectsMatrix = createObjectsMatrix(matrix);
+let seasonsId = 0;
+const seasons = ["Summer", "Fall", "Winter", "Spring"];
+let weather = seasons[0];
+
 function setup() {
-    createCanvas(n * side, m * side);
+    createCanvas(horizontallength * side, verticallength * side);
     background('#acacac');
     frameRate(5);
 }
 function draw() {
     drawMatrix(matrix);
     updateObjectsMatrix(objectsMatrix);
+    weatherChanger();
 }
 
 
@@ -77,7 +82,7 @@ function updateObjectsMatrix(objectsMatrix) {
     }
 }
 
-function createMatrix(horizontallength, verticallength){
+function createMatrix(horizontallength, verticallength) {
     const newMatrix = [];
     for (var y = 0; y < verticallength; y++) {
         newMatrix[y] = [];
@@ -100,3 +105,25 @@ function createMatrix(horizontallength, verticallength){
     }
     return newMatrix;
 };
+
+let weatherTimer = 10;
+
+function weatherChanger() {
+
+    while (0 < weatherTimer) {
+        weatherTimer--;
+        return;
+    }
+    if (seasonsId >= seasons.length - 1) {
+        seasonsId = 0;
+        weather = seasons[seasonsId];
+        console.log(weather);
+
+    } else {
+        seasonsId++;
+        weather = seasons[seasonsId];
+        console.log(weather);
+
+    }
+    weatherTimer = 10;
+}
