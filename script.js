@@ -1,32 +1,35 @@
 "use strict";
 
+//                 Canvas Variables
 const horizontallength = 70;
 const verticallength = 70;
-
 const side = 10;
-const restartBtn = document.getElementById('restart');
-let  matrix = createMatrix(horizontallength, verticallength);
+// ---------------------------------------------------
+//                 Button Variables
+const restartBtn = document.getElementById("restart");
+const nextSeason = document.getElementById("season");
+const killCreatures = document.getElementById("killAll");
+// ---------------------------------------------------
+//                 Matrix Variables
+let matrix = createMatrix(horizontallength, verticallength);
 let objectsMatrix = createObjectsMatrix(matrix);
+// ---------------------------------------------------
+//                 Season Variables
 let seasonsId = 0;
 const seasons = ["Summer", "Fall", "Winter", "Spring"];
 let weather = seasons[0];
-
-
+// ---------------------------------------------------
 
 function setup() {
   createCanvas(horizontallength * side, verticallength * side);
   background("#acacac");
-  frameRate(4);
+  frameRate(2);
 }
 function draw() {
   drawMatrix(matrix);
   updateObjectsMatrix(objectsMatrix, weather);
   weatherChanger();
 }
-
-restartBtn.addEventListener('click', ()=>{
-    restartGame();
-})
 
 function createObjectsMatrix(matrix) {
   const newObjectsMatrix = [];
@@ -60,7 +63,7 @@ function drawMatrix(matrix) {
   for (var y = 0; y < matrix.length; y++) {
     for (var x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
-        seasonColor('green', '#875b09', '#d9e6cf', '#042b0f')
+        seasonColor("green", "#875b09", "#d9e6cf", "#042b0f");
       } else if (matrix[y][x] == 2) {
         fill("yellow");
       } else if (matrix[y][x] == 3) {
@@ -76,7 +79,7 @@ function drawMatrix(matrix) {
     }
   }
 }
-function updateObjectsMatrix(objectsMatrix,season) {
+function updateObjectsMatrix(objectsMatrix, season) {
   for (var y = 0; y < objectsMatrix.length; y++) {
     for (let x = 0; x < objectsMatrix[y].length; x++) {
       const object = objectsMatrix[y][x];
@@ -144,6 +147,31 @@ function seasonColor(summerColor, fallColor, winterColor, springColor) {
 }
 
 function restartGame() {
-   matrix = createMatrix(horizontallength, verticallength);
-   objectsMatrix = createObjectsMatrix(matrix);
+  weather = seasons[0];
+  weatherTimer = 15;
+  matrix = createMatrix(horizontallength, verticallength);
+  objectsMatrix = createObjectsMatrix(matrix);
 }
+
+function killAll(objectsMatrix) {
+  for (var y = 0; y < objectsMatrix.length; y++) {
+    for (let x = 0; x < objectsMatrix[y].length; x++) {
+      const object = objectsMatrix[y][x];
+      if (object) {
+        object.energy = -1;
+      }
+    }
+  }
+}
+
+// Button Functions
+restartBtn.addEventListener("click", () => {
+  restartGame();
+});
+
+nextSeason.addEventListener("click", () => {
+  weatherTimer = 0;
+});
+killCreatures.addEventListener("click", () => {
+  killAll(objectsMatrix);
+});
