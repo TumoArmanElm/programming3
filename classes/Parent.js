@@ -72,7 +72,6 @@ class Parent {
 
       if (this.season == "Winter" || this.season == "Summer") {
         this.energy -= moveEnergyLose + 0.5;
-        console.log(this.season);
       } else this.energy -= moveEnergyLose;
     }
 
@@ -98,8 +97,9 @@ class Parent {
 
       if (this.season == "Winter" || this.season == "Summer") {
         this.energy += energyGain;
-      } else {this.energy += energyGain + 0.5; console.log("MORE ENERGYYYY");}
-      
+      } else {
+        this.energy += energyGain + 0.5;
+      }
 
       this.multiply();
     } else {

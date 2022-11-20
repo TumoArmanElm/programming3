@@ -4,12 +4,14 @@ const horizontallength = 70;
 const verticallength = 70;
 
 const side = 10;
-
-const matrix = createMatrix(horizontallength, verticallength);
-const objectsMatrix = createObjectsMatrix(matrix);
+const restartBtn = document.getElementById('restart');
+let  matrix = createMatrix(horizontallength, verticallength);
+let objectsMatrix = createObjectsMatrix(matrix);
 let seasonsId = 0;
 const seasons = ["Summer", "Fall", "Winter", "Spring"];
 let weather = seasons[0];
+
+
 
 function setup() {
   createCanvas(horizontallength * side, verticallength * side);
@@ -21,6 +23,10 @@ function draw() {
   updateObjectsMatrix(objectsMatrix, weather);
   weatherChanger();
 }
+
+restartBtn.addEventListener('click', ()=>{
+    restartGame();
+})
 
 function createObjectsMatrix(matrix) {
   const newObjectsMatrix = [];
@@ -135,4 +141,9 @@ function seasonColor(summerColor, fallColor, winterColor, springColor) {
   } else {
     fill(springColor);
   }
+}
+
+function restartGame() {
+   matrix = createMatrix(horizontallength, verticallength);
+   objectsMatrix = createObjectsMatrix(matrix);
 }
