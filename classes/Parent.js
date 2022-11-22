@@ -1,11 +1,12 @@
 class Parent {
-  constructor(x, y, id, matrix, objectsMatrix) {
+  constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     this.x = x;
     this.y = y;
     this.id = id;
     this.season = "Summer";
     this.matrix = matrix;
     this.objectsMatrix = objectsMatrix;
+    this.creatureCount = creatureCount;
     this.energy = 0;
     this.directions = [
       [this.x - 1, this.y - 1],

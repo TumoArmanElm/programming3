@@ -1,4 +1,11 @@
 "use strict";
+const creatureCount = {
+  grass: 0,
+  grassEater: 0,
+  predator: 0,
+  farmer: 0,
+  zombie: 0
+}
 
 //                 Canvas Variables
 const horizontallength = 70;
@@ -23,12 +30,13 @@ let weather = seasons[0];
 function setup() {
   createCanvas(horizontallength * side, verticallength * side);
   background("#acacac");
-  frameRate(2);
+  frameRate(10);
 }
 function draw() {
   drawMatrix(matrix);
   updateObjectsMatrix(objectsMatrix, weather);
   weatherChanger();
+  statUpdater(creatureCount);
 }
 
 function createObjectsMatrix(matrix) {
@@ -37,25 +45,31 @@ function createObjectsMatrix(matrix) {
     newObjectsMatrix[y] = [];
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
-        const newGrass = new Grass(x, y, 1, matrix, newObjectsMatrix);
+        const newGrass = new Grass(x, y, 1, matrix, newObjectsMatrix, creatureCount);
         newObjectsMatrix[y][x] = newGrass;
+        creatureCount.grass++;
       } else if (matrix[y][x] == 2) {
-        const newGrassEater = new GrassEater(x, y, 2, matrix, newObjectsMatrix);
+        const newGrassEater = new GrassEater(x, y, 2, matrix, newObjectsMatrix, creatureCount);
         newObjectsMatrix[y][x] = newGrassEater;
+        creatureCount.grassEater++;
       } else if (matrix[y][x] == 3) {
-        const newPredator = new Predator(x, y, 3, matrix, newObjectsMatrix);
+        const newPredator = new Predator(x, y, 3, matrix, newObjectsMatrix, creatureCount);
         newObjectsMatrix[y][x] = newPredator;
+        creatureCount.predator++;
       } else if (matrix[y][x] == 4) {
-        const newFarmer = new Farmer(x, y, 4, matrix, newObjectsMatrix);
+        const newFarmer = new Farmer(x, y, 4, matrix, newObjectsMatrix, creatureCount);
         newObjectsMatrix[y][x] = newFarmer;
+        creatureCount.farmer++;
       } else if (matrix[y][x] == 5) {
-        const newZombie = new Zombie(x, y, 5, matrix, newObjectsMatrix);
+        const newZombie = new Zombie(x, y, 5, matrix, newObjectsMatrix, creatureCount);
         newObjectsMatrix[y][x] = newZombie;
+        creatureCount.zombie++;
       } else {
         newObjectsMatrix[y][x] = null;
       }
     }
   }
+  console.log(creatureCount);
   return newObjectsMatrix;
 }
 
@@ -147,6 +161,11 @@ function seasonColor(summerColor, fallColor, winterColor, springColor) {
 }
 
 function restartGame() {
+  creatureCount.grass = 0;
+  creatureCount.grassEater = 0;
+  creatureCount.predator = 0;
+  creatureCount.farmer = 0;
+  creatureCount.zombie = 0;
   weather = seasons[0];
   weatherTimer = 15;
   matrix = createMatrix(horizontallength, verticallength);
@@ -163,6 +182,12 @@ function killAll(objectsMatrix) {
     }
   }
 }
+
+function statUpdater(creatureCount) {
+  if(frameCount % 60 == 0) console.log(creatureCount);
+  frameCount = 0;
+}
+
 
 // Button Functions
 restartBtn.addEventListener("click", () => {

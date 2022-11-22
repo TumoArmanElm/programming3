@@ -1,8 +1,8 @@
 "use strict";
 
 class Zombie extends Parent {
-  constructor(x, y, id, matrix, objectsMatrix) {
-    super(x, y, id, matrix, objectsMatrix);
+  constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
+    super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.infestPower = 5;
     /// այս փոփոխականը ես ավելացրել եմ որովհետև Զոմբիների lastStand(); ֆունքցիան չափից շատ կանչելու պատճառով այս Error ն էր բերում Uncaught RangeError: Maximum call stack size exceeded;
     this.zombieStandingPower = 10;
@@ -49,9 +49,10 @@ class Zombie extends Parent {
         newY,
         this.id,
         this.matrix,
-        this.objectsMatrix
+        this.objectsMatrix,
+        this.creatureCount
       );
-
+        this.creatureCount.zombie++;
       if (this.infestPower > 0 && this.energy <= 0) {
         this.infestPower = 0;
       } else if (this.infestPower > 0 && this.energy > 0) {

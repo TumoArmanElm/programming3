@@ -1,6 +1,6 @@
 class Farmer extends Parent {
-  constructor(x, y, id, matrix, objectsMatrix) {
-    super(x, y, id, matrix, objectsMatrix);
+  constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
+    super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.energy = 15;
     this.updateCoordinates();
   }
@@ -23,9 +23,11 @@ class Farmer extends Parent {
         newY,
         this.id,
         this.matrix,
-        this.objectsMatrix
+        this.objectsMatrix,
+        this.creatureCount
       );
       this.objectsMatrix[newY][newX] = newPredator;
+      this.creatureCount.farmer++;
 
       this.energy = 20;
     }

@@ -1,8 +1,8 @@
 "use strict";
 
 class GrassEater extends Parent {
-  constructor(x, y, id, matrix, objectsMatrix) {
-    super(x, y, id, matrix, objectsMatrix);
+  constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
+    super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.energy = 8;
     this.updateCoordinates();
   }
@@ -22,9 +22,11 @@ class GrassEater extends Parent {
         newY,
         this.id,
         this.matrix,
-        this.objectsMatrix
+        this.objectsMatrix,
+        this.creatureCount
       );
       this.objectsMatrix[newY][newX] = newGrassEater;
+      this.creatureCount.grassEater++;
 
       this.energy = 8;
     }

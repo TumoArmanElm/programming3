@@ -18,9 +18,11 @@ class Grass extends Parent {
         newY,
         this.id,
         this.matrix,
-        this.objectsMatrix
+        this.objectsMatrix,
+        this.creatureCount
       );
       this.objectsMatrix[newY][newX] = newGrass;
+      this.creatureCount.grass++;
 
       this.energy = 0;
     }
