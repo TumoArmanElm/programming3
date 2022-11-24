@@ -1,6 +1,8 @@
 "use strict";
 
-class Predator extends Parent {
+const Parent = require('./Parent');
+
+module.exports = class Predator extends Parent {
   constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.energy = 17;
@@ -9,7 +11,7 @@ class Predator extends Parent {
 
   multiply() {
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
 
     if (this.energy >= 21 && newCell) {
       let newX = newCell[0];

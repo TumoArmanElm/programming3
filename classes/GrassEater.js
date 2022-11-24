@@ -1,6 +1,8 @@
 "use strict";
 
-class GrassEater extends Parent {
+const Parent = require('./Parent');
+
+module.exports = class GrassEater extends Parent {
   constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.energy = 8;
@@ -9,7 +11,7 @@ class GrassEater extends Parent {
 
   multiply() {
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
 
     if (this.energy >= 20 && newCell) {
       let newX = newCell[0];

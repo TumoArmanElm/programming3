@@ -1,4 +1,5 @@
-class Parent {
+
+module.exports = class Parent {
   constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     this.x = x;
     this.y = y;
@@ -18,6 +19,12 @@ class Parent {
       [this.x, this.y + 1],
       [this.x + 1, this.y + 1],
     ];
+  }
+
+  random(){
+    let found = this.chooseCell(0);
+    let result = Math.floor(Math.random()*found.length)
+    return found[result];
   }
 
   chooseCell(characterId) {
@@ -56,7 +63,7 @@ class Parent {
 
   move(moveEnergyLose) {
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = this.random(targetCells);
 
     if (this.energy > 0 && newCell) {
       let newX = newCell[0];
@@ -81,7 +88,7 @@ class Parent {
 
   eat(eatTargetId, energyGain, moveEnergyLose) {
     let targetCells = this.chooseCell(eatTargetId);
-    let newCell = random(targetCells);
+    let newCell = this.random(targetCells);
 
     if (this.energy > 0 && newCell) {
       let newX = newCell[0];

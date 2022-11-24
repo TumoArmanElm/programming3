@@ -1,6 +1,8 @@
 "use strict";
 
-class Zombie extends Parent {
+const Parent = require('./Parent');
+
+module.exports = class Zombie extends Parent {
   constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.infestPower = 5;
@@ -13,7 +15,7 @@ class Zombie extends Parent {
 
   move() {
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
 
     if (this.energy > 0 && newCell) {
       let newX = newCell[0];
@@ -36,7 +38,7 @@ class Zombie extends Parent {
 
   infest() {
     let humanCells = this.chooseCell(4);
-    let chosenHuman = random(humanCells);
+    let chosenHuman = super.random(humanCells);
 
     if (this.energy > 0 && chosenHuman && this.infestPower > 0) {
       let newX = chosenHuman[0];
@@ -65,7 +67,7 @@ class Zombie extends Parent {
 
   eat() {
     let targetCells = this.chooseCell(3);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
 
     if (this.energy > 0 && newCell) {
       let newX = newCell[0];

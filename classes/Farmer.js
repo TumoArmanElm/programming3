@@ -1,4 +1,6 @@
-class Farmer extends Parent {
+const Parent = require('./Parent');
+
+module.exports = class Farmer extends Parent {
   constructor(x, y, id, matrix, objectsMatrix, creatureCount) {
     super(x, y, id, matrix, objectsMatrix, creatureCount);
     this.energy = 15;
@@ -7,10 +9,10 @@ class Farmer extends Parent {
 
   multiply() {
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
     if (newCell == []) {
       targetCells = this.chooseCell(1);
-      newCell = random(targetCells);
+      newCell = super.random(targetCells);
     }
     if (this.energy >= 20 && newCell) {
       let newX = newCell[0];
@@ -35,9 +37,9 @@ class Farmer extends Parent {
 
   eat() {
     let grassCells = this.chooseCell(1);
-    let lowEnergyCell = random(grassCells);
+    let lowEnergyCell = super.random(grassCells);
     let grasseaterCells = this.chooseCell(2);
-    let normalFood = random(grasseaterCells);
+    let normalFood = super.random(grasseaterCells);
     if (this.energy > 0 && this.energy < 5 && lowEnergyCell) {
       let newX = lowEnergyCell[0];
       let newY = lowEnergyCell[1];
@@ -77,8 +79,8 @@ class Farmer extends Parent {
 
   fightingPredator() {
     let attackingPredator = this.chooseCell(3);
-    let chosenPredator = random(attackingPredator);
-    let randomWinner = (random(0, 100) * this.energy) / 2;
+    let chosenPredator = super.random(attackingPredator);
+    let randomWinner = (super.random(0, 100) * this.energy) / 2;
     if (this.energy > 5 && chosenPredator) {
       let newX = chosenPredator[0];
       let newY = chosenPredator[1];
@@ -105,7 +107,7 @@ class Farmer extends Parent {
       ////No Fight
       else {
         this.energy--;
-        this.objectsMatrix[newY][newX].energy--;
+        // this.objectsMatrix[newY][newX].energy--;
       }
     }
     this.die();

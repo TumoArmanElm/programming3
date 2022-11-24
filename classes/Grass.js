@@ -1,11 +1,13 @@
 "use strict";
 
-class Grass extends Parent {
+const Parent = require('./Parent');
+
+module.exports = class Grass extends Parent {
   multiply() {
     this.energy++;
 
     let targetCells = this.chooseCell(0);
-    let newCell = random(targetCells);
+    let newCell = super.random(targetCells);
 
     if (this.energy >= 6 && newCell) {
       let newX = newCell[0];
